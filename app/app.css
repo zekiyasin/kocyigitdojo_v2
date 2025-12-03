@@ -1,4 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap&family=Montserrat:wght@600;700;800;900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&display=swap");
+
 @import "tailwindcss";
+
+/* Google Fontlar */
+html {
+  font-family: "Open Sans", "Montserrat", sans-serif;
+  @apply antialiased;
+}
+
+/* Slick carousel */
+.slick-dots {
+  display: flex !important;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Kanji animasyonları */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(-50%) translateY(0);
+  }
+  50% {
+    transform: translateY(-50%) translateY(-5px);
+  }
+}
+@keyframes pulseOpacity {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.26;
+  }
+}
+.kanji-float {
+  animation: float 6s ease-in-out infinite;
+}
+.kanji-breathe {
+  animation: pulseOpacity 8s ease-in-out infinite;
+}
+.kanji-glow {
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255, 255, 255, 0.18))
+    blur(2px);
+}
+
+/* Kart giriş animasyonu */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-animate {
+  animation: fadeUp 0.9s ease-out forwards;
+}
+
+/* Fade-in-up animasyonu (başlık ve tablo girişleri için) */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+
+.writing-vertical {
+  font-family: "Noto Serif JP", serif;
+}
+/* ----- Kağıt dokusu arka plan (senin tema ile uyumlu) ----- */
+.paper-bg {
+  background: radial-gradient(
+      1200px 600px at 50% 0%,
+      rgba(0, 0, 0, 0.08),
+      transparent 60%
+    ),
+    url("/paper-texture.jpg"); /* public klasörüne soft bir kağıt dokusu koyarsan daha iyi görünür */
+  background-color: #1e293b; /* koyu mavi taban */
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* ----- Kart giriş animasyonu (alttan üstte) ----- */
+@keyframes fadeUpSoft {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-animate {
+  animation: fadeUpSoft 0.7s ease-out both;
+}
+
+/* Küçük yardımcı stiller */
+a[title="Videoyu izle"] {
+  font-weight: 600;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal-up {
+  opacity: 0;
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+/* Cam efekti arkaplan için */
+.glass-effect {
+  @apply bg-white/10 backdrop-blur-md shadow-xl border border-white/10;
+}
+
+/* Menu animasyonları */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,

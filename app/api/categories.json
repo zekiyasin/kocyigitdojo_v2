@@ -1,0 +1,36 @@
+[
+  { "id": 1, "title": "SENSEİ", "icon": "GiBlackBelt", "path": "/sensei" },
+  { "id": 2, "title": "SENPAİ", "icon": "GiTeacher", "path": "/senpai" },
+  {
+    "id": 3,
+    "title": "SPORCU SIRALAMASI",
+    "icon": "GiKimono",
+    "path": "/sporcu-siralama"
+  },
+  { "id": 4, "title": "KATA", "icon": "GiPunch", "path": "/kata" },
+  {
+    "id": 5,
+    "title": "KUMİTE",
+    "icon": "GiPunchBlast",
+    "path": "/kumite"
+  },
+  {
+    "id": 6,
+    "title": "DOJO KUN",
+    "icon": "GiScrollUnfurled",
+    "path": "/dojo-kun"
+  },
+  { "id": 7, "title": "SINAVLAR", "icon": "GiNotebook", "path": "/sinavlar" },
+  {
+    "id": 8,
+    "title": "KEMER LİSTESİ",
+    "icon": "GiRibbonMedal",
+    "path": "/kemer-listesi"
+  },
+  {
+    "id": 9,
+    "title": "GALERİ",
+    "icon": "GrGallery",
+    "path": "/galeri"
+  }
+]
