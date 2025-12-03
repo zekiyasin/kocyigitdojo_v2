@@ -32,7 +32,7 @@ const BELTS: BeltGroup[] = [
     beltColor: "#000000",
     stripeColor: "#facc15",
     textColor: "#facc15",
-    members: ["Senpai Şuranur Koçyiğit", "Senpai Rana Kardüz"],
+    members: ["Senpai Şuranur Koçyiğit", "Senpai Rana Karduz"],
   },
   {
     level: "6. Kyu",
@@ -152,7 +152,8 @@ export function meta({}: Route.MetaArgs) {
     { title: "Kemer Listesi - Koçyiğit Dojo Karate" },
     {
       name: "description",
-      content: "Kyokushin Karate kemer sistemi ve kyu-dan dereceleri hakkında bilgi edinin.",
+      content:
+        "Kyokushin Karate kemer sistemi ve kyu-dan dereceleri hakkında bilgi edinin.",
     },
   ];
 }
