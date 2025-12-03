@@ -33,6 +33,50 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
 
+        {/* Open Graph / Facebook / WhatsApp */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kocyigitdojo.com/" />
+        <meta
+          property="og:title"
+          content="Koçyiğit Dojo | Kyokushin Karate İstanbul"
+        />
+        <meta
+          property="og:description"
+          content="İstanbul Tuzla'da profesyonel Kyokushin ve Shinkyokushin Karate eğitimi. Disiplin, güç ve öz güven."
+        />
+        <meta
+          property="og:image"
+          content="https://kocyigitdojo.com/og-image.png"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Koçyiğit Dojo" />
+        <meta property="og:locale" content="tr_TR" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://kocyigitdojo.com/" />
+        <meta
+          name="twitter:title"
+          content="Koçyiğit Dojo | Kyokushin Karate İstanbul"
+        />
+        <meta
+          name="twitter:description"
+          content="İstanbul Tuzla'da profesyonel Kyokushin ve Shinkyokushin Karate eğitimi. Disiplin, güç ve öz güven."
+        />
+        <meta
+          name="twitter:image"
+          content="https://kocyigitdojo.com/og-image.png"
+        />
+
+        {/* Additional SEO */}
+        <meta name="theme-color" content="#1A2238" />
+        <meta name="author" content="Koçyiğit Dojo" />
+        <meta
+          name="keywords"
+          content="Kyokushin Karate, Shinkyokushin, Karate Tuzla, Karate İstanbul, Dövüş Sporları, Kyokushin Türkiye"
+        />
+
         {/* Favicon Links */}
         <link
           rel="icon"
