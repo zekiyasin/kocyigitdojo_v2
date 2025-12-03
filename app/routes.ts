@@ -12,6 +12,6 @@ export default [
   route("dojo-kun", "routes/dojo-kun.tsx"),
   route("sinavlar", "routes/sinavlar.tsx"),
   route("kemer-listesi", "routes/kemer-listesi.tsx"),
-  route("galeri", "routes/galeri.tsx"),
+  // route("galeri", "routes/galeri.tsx"), // Devre dışı
   route("hakkimizda", "routes/hakkimizda.tsx"),
 ] satisfies RouteConfig;

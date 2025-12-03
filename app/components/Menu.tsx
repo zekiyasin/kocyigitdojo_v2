@@ -54,9 +54,6 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
     { label: "Kumite", action: () => navigate("/kumite") },
     { label: "Sınavlar", action: () => navigate("/sinavlar") },
     { label: "Dojo Kun", action: () => navigate("/dojo-kun") },
-
-    // --- Medya & İletişim ---
-    { label: "Galeri", action: () => navigate("/galeri") },
   ];
 
   return (
