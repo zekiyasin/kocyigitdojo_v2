@@ -30,10 +30,24 @@ const trLines = [
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Dojo Kun - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Dojo Kun - Kyokushin Karate İlkeleri ve Felsefesi | Koçyiğit Dojo",
+    },
     {
       name: "description",
-      content: "Kyokushin Karate'nin temel prensipleri ve Dojo Kun ilkeleri hakkında bilgi edinin.",
+      content:
+        "Kyokushin Karate Dojo Kun - 6 temel ilke ve Japon felsefesi. Saygı, disiplin, öz güven ve alçakgönüllülük prensipleri. Türkçe ve Japonca Dojo Yemini.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/dojo-kun",
+    },
+    {
+      name: "keywords",
+      content:
+        "Dojo Kun, Kyokushin İlkeleri, Karate Felsefesi, Dojo Yemini, Japon Dövüş Sanatları, Kyokushin Prensipleri, Karate Ahlakı",
     },
   ];
 }
@@ -64,9 +78,9 @@ export default function DojoKun() {
       <div className="relative z-10 max-w-7xl w-full">
         {/* Başlık */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
-            Dojo Kun
-          </h2>
+          <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
+            Dojo Kun - Kyokushin Karate İlkeleri
+          </h1>
           <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
           <p className="text-gray-400 mt-4 text-sm uppercase tracking-widest">
             Dojo Yemini

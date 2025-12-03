@@ -7,10 +7,24 @@ import { FaPlay } from "react-icons/fa"; // Play ikonu
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Kumite Eğitimi - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Kumite Eğitimi | Kyokushin Dövüş Teknikleri - Koçyiğit Dojo Tuzla",
+    },
     {
       name: "description",
-      content: "Kyokushin Karate kumite eğitimleri ve temel kombinasyonlar hakkında bilgi edinin.",
+      content:
+        "Kyokushin Karate kumite (dövüş) eğitimi İstanbul Tuzla'da. Full contact karate teknikleri, maç analizleri ve antrenman stratejileri. Profesyonel kumite eğitimi.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/kumite",
+    },
+    {
+      name: "keywords",
+      content:
+        "Kyokushin Kumite, Karate Dövüş, Full Contact Karate, Kumite Teknikleri, Karate Maçları, Kumite Tuzla, Kumite İstanbul",
     },
   ];
 }
@@ -51,9 +65,9 @@ const KumitePage = () => {
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Başlık */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
-            Kumite
-          </h2>
+          <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
+            Kyokushin Kumite - Dövüş Eğitimi Tuzla
+          </h1>
           <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
           <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-sm sm:text-base">
             Gerçek mücadelenin ruhu: Kumite. Teknik analizler, maç özetleri ve
@@ -101,8 +115,8 @@ const KumitePage = () => {
                         kumite.category === "Maç"
                           ? "text-yellow-500 border-yellow-500/30 bg-yellow-500/5"
                           : kumite.category === "Teknik"
-                          ? "text-blue-400 border-blue-400/30 bg-blue-400/5"
-                          : "text-[#D92827] border-[#D92827]/30 bg-[#D92827]/5"
+                            ? "text-blue-400 border-blue-400/30 bg-blue-400/5"
+                            : "text-[#D92827] border-[#D92827]/30 bg-[#D92827]/5"
                       }
                     `}
                   >

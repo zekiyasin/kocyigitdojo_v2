@@ -9,6 +9,11 @@ export function meta({}: Route.MetaArgs) {
       content:
         "Kyokushin Karate'nin tarihçesi, Shinkyokushin felsefesi ve Türkiye'deki gelişimi. Mas Oyama'nın mirası, kuşak sistemi ve antrenman metodları hakkında detaylı bilgi.",
     },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://www.kocyigitdojo.com/kyokushin-nedir",
+    },
   ];
 }
 

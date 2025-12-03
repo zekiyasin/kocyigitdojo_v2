@@ -30,10 +30,24 @@ const senseis: SenseiData[] = [
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Sensei - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Sensei Edanur & Zeki Yasin Koçyiğit | 3. Dan Kyokushin Karate İstanbul",
+    },
     {
       name: "description",
-      content: "Koçyiğit Dojo Karate Kulübü'nün deneyimli sensei ve antrenörleri hakkında bilgi edinin.",
+      content:
+        "Sensei Edanur Koçyiğit ve Sensei Zeki Yasin Koçyiğit, 3. Dan Kyokushin Karate ustaları. Milli sporcu, antrenör ve hakem. İstanbul Tuzla'da profesyonel karate eğitimi.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/sensei",
+    },
+    {
+      name: "keywords",
+      content:
+        "Sensei Edanur Koçyiğit, Sensei Zeki Yasin Koçyiğit, Kyokushin Antrenör, Karate Ustası, 3. Dan, Karate Sensei İstanbul, Kyokushin Tuzla",
     },
   ];
 }
@@ -66,9 +80,9 @@ const Sensei = () => {
 
       {/* Başlık Alanı */}
       <div className="relative z-10 max-w-6xl mx-auto text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase">
-          Sensei
-        </h2>
+        <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase">
+          Kyokushin Karate Sensei - Koçyiğit Dojo İstanbul
+        </h1>
         {/* Kırmızı Çizgi */}
         <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
       </div>

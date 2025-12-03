@@ -149,11 +149,21 @@ function BeltCard({
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Kemer Listesi - Koçyiğit Dojo Karate" },
+    { title: "Kemer Listesi ve Sporcu Sıralaması | Kyokushin Karate Tuzla" },
     {
       name: "description",
       content:
-        "Kyokushin Karate kemer sistemi ve kyu-dan dereceleri hakkında bilgi edinin.",
+        "Koçyiğit Dojo Kyokushin Karate sporcularının güncel kemer listesi ve dan-kyu dereceleri. Beyaz kemerden siyah kemere kadar tüm seviyeler. İstanbul Tuzla.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/kemer-listesi",
+    },
+    {
+      name: "keywords",
+      content:
+        "Kyokushin Kemer Listesi, Karate Kemerleri, Dan Derecesi, Kyu Sistemi, Siyah Kemer, Karate Sporcu Listesi, Kyokushin Tuzla",
     },
   ];
 }
@@ -196,9 +206,9 @@ export default function KemerListesi() {
       <div className="relative z-10 max-w-4xl mx-auto">
         {/* Başlık */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
-            Kemer Listesi
-          </h2>
+          <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
+            Kyokushin Karate Kemer Listesi - Koçyiğit Dojo
+          </h1>
           <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
           <p className="text-gray-400 mt-6 text-sm sm:text-base">
             Dojomuzun gurur kaynağı sporcularımız ve güncel kemer seviyeleri.

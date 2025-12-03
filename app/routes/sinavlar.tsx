@@ -6,10 +6,24 @@ import { FaPlay, FaChevronDown, FaChevronUp, FaRunning } from "react-icons/fa";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Sınavlar - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Kyu Sınavları ve Müfredat | Kyokushin Karate Tuzla - Koçyiğit Dojo",
+    },
     {
       name: "description",
-      content: "Kyokushin Karate kyu sınavları, müfredat ve egzersiz tabloları hakkında detaylı bilgi.",
+      content:
+        "Kyokushin Karate kyu sınav müfredatı ve fiziksel yeterlilik gereksinimleri. 10. kyu'dan 1. kyu'ya kadar tüm seviyeler için teknik videolar ve egzersiz tabloları. Tuzla İstanbul.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/sinavlar",
+    },
+    {
+      name: "keywords",
+      content:
+        "Kyokushin Sınavlar, Kyu Sınavı, Karate Kemer Sınavı, Kyu Müfredat, Karate Seviyeler, Kyokushin Tuzla, Kemer Terfi",
     },
   ];
 }

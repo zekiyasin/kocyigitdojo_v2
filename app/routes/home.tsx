@@ -19,6 +19,11 @@ export function meta({}: Route.MetaArgs) {
       content:
         "İstanbul'da gerçek Kyokushin Karate eğitimi. Koçyiğit Dojo ile fiziksel ve zihinsel gücünü keşfet. Shinkyokushin disipliniyle tanışın.",
     },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://www.kocyigitdojo.com/",
+    },
   ];
 }
 

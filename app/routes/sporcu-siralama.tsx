@@ -12,10 +12,24 @@ import Kanji from "../assets/kanji.png";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Sporcu Sıralaması - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Sporcu Sıralaması ve Başarılar | Kyokushin Karate Tuzla - Koçyiğit Dojo",
+    },
     {
       name: "description",
-      content: "Koçyiğit Dojo Karate sporcularının başarıları ve sıralama tablosu.",
+      content:
+        "Koçyiğit Dojo Kyokushin Karate sporcularının başarıları, madalya sıralaması ve puan tablosu. Milli sporcular ve şampiyonlar. İstanbul Tuzla karate kulübü.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/sporcu-siralama",
+    },
+    {
+      name: "keywords",
+      content:
+        "Kyokushin Sporcu Sıralaması, Karate Madalyalar, Karate Şampiyonlar, Milli Karateciler, Kyokushin Başarılar, Karate Tuzla, Sporcu Listesi",
     },
   ];
 }
@@ -91,9 +105,9 @@ const AthletesRanking = () => {
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Başlık */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
-            Sporcu Sıralaması
-          </h2>
+          <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
+            Kyokushin Karate Sporcu Sıralaması - Başarılar
+          </h1>
           <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
         </div>
 

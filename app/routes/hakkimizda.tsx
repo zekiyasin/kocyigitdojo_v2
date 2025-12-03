@@ -10,6 +10,11 @@ export function meta({}: Route.MetaArgs) {
       content:
         "Koçyiğit Dojo, Türkiye'de Kyokushin ve Shinkyokushin Karate eğitimi veren köklü bir kulüptür. Sensei Edanur Koçyiğit ve ekibimiz hakkında bilgi edinin.",
     },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://www.kocyigitdojo.com/hakkimizda",
+    },
   ];
 }
 

@@ -30,10 +30,24 @@ const senpais: SenpaiData[] = [
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Senpai - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Senpai Şuranur Koçyiğit & Rana Karduz | 2. Dan Kyokushin Antrenör",
+    },
     {
       name: "description",
-      content: "Koçyiğit Dojo Karate Kulübü'nün senpai ve yardımcı antrenörleri hakkında bilgi edinin.",
+      content:
+        "Senpai Şuranur Koçyiğit ve Senpai Rana Karduz, 2. Dan Kyokushin Karate antrenörleri. Yeni nesil sporculara rehberlik eden deneyimli eğitmenler. Tuzla İstanbul.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/senpai",
+    },
+    {
+      name: "keywords",
+      content:
+        "Senpai Şuranur Koçyiğit, Senpai Rana Karduz, Kyokushin Senpai, 2. Dan, Karate Antrenör, Kadın Karate Antrenör, Kyokushin Tuzla",
     },
   ];
 }
@@ -66,9 +80,9 @@ const Senpai = () => {
 
       {/* Başlık Alanı */}
       <div className="relative z-10 max-w-6xl mx-auto text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase">
-          Senpai
-        </h2>
+        <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase">
+          Kyokushin Karate Senpai - Yardımcı Antrenörler
+        </h1>
         {/* Kırmızı Çizgi */}
         <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
       </div>

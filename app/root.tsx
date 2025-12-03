@@ -9,11 +9,24 @@ import {
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+};
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -103,6 +116,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="apple-mobile-web-app-title" content="Koçyiğit Dojo" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
 
+        {/* Google Analytics 4 */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_MEASUREMENT_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${import.meta.env.VITE_GA_MEASUREMENT_ID}');
+            `,
+          }}
+        />
+
         {/* Schema.org Yapısal Veri - SportsActivityLocation */}
         <script
           type="application/ld+json"
@@ -163,6 +192,12 @@ export default function App() {
       duration: 800,
       once: true,
     });
+
+    // Initialize Firebase
+    if (typeof window !== "undefined") {
+      const app = initializeApp(firebaseConfig);
+      getAnalytics(app);
+    }
   }, []);
 
   return (

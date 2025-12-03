@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /_app/
+Disallow: /_error
+
+Sitemap: https://www.kocyigitdojo.com/sitemap.xml

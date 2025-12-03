@@ -18,6 +18,11 @@ export function meta({}: Route.MetaArgs) {
       content:
         "Tuzla Kyokushin Karate kursu kayıtlarımız başladı. Koçyiğit Dojo antrenman saatleri, ulaşım bilgileri ve iletişim için tıklayın.",
     },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://www.kocyigitdojo.com/iletisim",
+    },
   ];
 }
 

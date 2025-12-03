@@ -6,10 +6,21 @@ import kanji from "../assets/kanji.png"; // Kanji dekoru
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Kata Eğitimi - Koçyiğit Dojo Karate" },
+    { title: "Kata Eğitimi | Kyokushin Karate Tuzla - Koçyiğit Dojo" },
     {
       name: "description",
-      content: "Kyokushin Karate kata eğitimleri. Taikyoku ve Pinan serisi katalar hakkında bilgi edinin.",
+      content:
+        "Kyokushin Karate kata eğitimleri İstanbul Tuzla'da. Taikyoku, Pinan, Gekisai serisi katalar ve teknik videolar ile öğrenin. Shinkyokushin Türkiye standartlarında eğitim.",
+    },
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: "https://kocyigitdojo.com/kata",
+    },
+    {
+      name: "keywords",
+      content:
+        "Kyokushin Kata, Karate Kata Eğitimi, Taikyoku, Pinan Kata, Kata Tuzla, Kata İstanbul, Shinkyokushin Kata",
     },
   ];
 }
@@ -50,9 +61,9 @@ const KataPage = () => {
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Başlık */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
-            Kata Eğitimi
-          </h2>
+          <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase text-white">
+            Kyokushin Kata Eğitimi - Tuzla İstanbul
+          </h1>
           <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
           <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-sm sm:text-base">
             Kyokushin Karate'nin temeli olan kataları, ustalarımızın anlatımıyla
