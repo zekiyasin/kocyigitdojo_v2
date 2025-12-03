@@ -32,6 +32,68 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+
+        {/* Favicon Links */}
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon/favicon-96x96.png"
+          sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <meta name="apple-mobile-web-app-title" content="Koçyiğit Dojo" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+
+        {/* Schema.org Yapısal Veri - SportsActivityLocation */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SportsActivityLocation",
+              name: "Koçyiğit Dojo",
+              image: "https://kocyigitdojo.com/logo.png",
+              description:
+                "İstanbul Tuzla'da profesyonel Kyokushin ve Shinkyokushin Karate eğitimi.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Halil Türkkan Kız Anadolu İmam Hatip Lisesi",
+                addressLocality: "Tuzla",
+                addressRegion: "İstanbul",
+                postalCode: "34940",
+                addressCountry: "TR",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "40.872433527777766",
+                longitude: "29.33247287652368",
+              },
+              telephone: "+905520042705",
+              email: "kocyigitdojo@gmail.com",
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: ["Monday", "Wednesday", "Friday"],
+                  opens: "18:00",
+                  closes: "21:00",
+                },
+              ],
+              url: "https://kocyigitdojo.com",
+              sameAs: [
+                "https://instagram.com/kocyigit_dojo",
+                "https://facebook.com/edanurkoçyigit",
+                "https://www.tiktok.com/@kocyigit.dojo",
+              ],
+              sport: "Kyokushin Karate",
+            }),
+          }}
+        />
       </head>
       <body suppressHydrationWarning>
         {children}

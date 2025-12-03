@@ -35,7 +35,8 @@ export default function HeroSection() {
         pagination={{
           clickable: true,
           bulletClass: "swiper-pagination-bullet hero-bullet",
-          bulletActiveClass: "swiper-pagination-bullet-active hero-bullet-active",
+          bulletActiveClass:
+            "swiper-pagination-bullet-active hero-bullet-active",
         }}
         loop={true}
         className={HERO_H}
@@ -46,7 +47,7 @@ export default function HeroSection() {
             <div className="absolute inset-0">
               <img
                 src={s.img}
-                alt={s.name}
+                alt={`${s.role} ${s.name} - Koçyiğit Dojo Kyokushin Karate İstanbul`}
                 className="w-full h-full object-cover opacity-90"
                 loading={i === 0 ? "eager" : "lazy"}
               />
@@ -68,6 +69,13 @@ export default function HeroSection() {
 
                 {/* Ana Metin Bloğu (Solunda Kırmızı Dikey Çizgi ile) */}
                 <div className="border-l-[6px] border-[#D92827] pl-6 sm:pl-8 py-2 backdrop-blur-[0px]">
+                  {/* Ana SEO H1 Başlığı - İlk slide'da görünür */}
+                  {i === 0 && (
+                    <h1 className="sr-only">
+                      İstanbul Kyokushin Karate Kulübü: Koçyiğit Dojo
+                    </h1>
+                  )}
+
                   {/* Üst Bilgi: Unvan Etiketi + Dojo Adı */}
                   <div className="flex flex-wrap items-center gap-3 mb-3">
                     <span className="bg-[#D92827] text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-sm tracking-wider shadow-lg shadow-red-900/40">
@@ -78,10 +86,10 @@ export default function HeroSection() {
                     </span>
                   </div>
 
-                  {/* İsim Alanı */}
-                  <h1 className="text-white text-4xl sm:text-5xl lg:text-7xl font-[Montserrat] font-black leading-[1.1] uppercase drop-shadow-xl">
+                  {/* İsim Alanı - H2 olarak değiştirildi */}
+                  <h2 className="text-white text-4xl sm:text-5xl lg:text-7xl font-[Montserrat] font-black leading-[1.1] uppercase drop-shadow-xl">
                     {s.name}
-                  </h1>
+                  </h2>
 
                   {/* Alt Slogan */}
                   <p className="mt-4 text-gray-300 text-sm sm:text-lg max-w-lg font-light hidden sm:block leading-relaxed border-t border-white/10 pt-4">

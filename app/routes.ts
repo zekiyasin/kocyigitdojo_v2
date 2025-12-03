@@ -2,6 +2,8 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.tsx"),
+  route("iletisim", "routes/iletisim.tsx"),
+  route("kyokushin-nedir", "routes/kyokushin-nedir.tsx"),
   route("sensei", "routes/sensei.tsx"),
   route("senpai", "routes/senpai.tsx"),
   route("sporcu-siralama", "routes/sporcu-siralama.tsx"),

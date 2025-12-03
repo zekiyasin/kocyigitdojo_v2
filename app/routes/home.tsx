@@ -10,11 +10,14 @@ import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Anasayfa - Koçyiğit Dojo Karate" },
+    {
+      title:
+        "Koçyiğit Dojo | Kyokushin Karate İstanbul & Shinkyokushin Türkiye",
+    },
     {
       name: "description",
       content:
-        "Koçyiğit Dojo Karate Kulübü'nün resmi web sitesine hoş geldiniz! En son haberler, etkinlikler ve karate ile ilgili bilgiler için bizi takip edin.",
+        "İstanbul'da gerçek Kyokushin Karate eğitimi. Koçyiğit Dojo ile fiziksel ve zihinsel gücünü keşfet. Shinkyokushin disipliniyle tanışın.",
     },
   ];
 }
