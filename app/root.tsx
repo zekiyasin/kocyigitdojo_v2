@@ -46,10 +46,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <meta
           property="og:image"
-          content="https://kocyigitdojo.com/og-image.png"
+          content="https://www.kocyigitdojo.com/og-image.png"
         />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="800" />
+        <meta property="og:image:type" content="image/png" />
+        <meta
+          property="og:image:alt"
+          content="Koçyiğit Dojo Logo - Kyokushin Karate"
+        />
         <meta property="og:site_name" content="Koçyiğit Dojo" />
         <meta property="og:locale" content="tr_TR" />
 
@@ -66,7 +71,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <meta
           name="twitter:image"
-          content="https://kocyigitdojo.com/og-image.png"
+          content="https://www.kocyigitdojo.com/og-image.png"
+        />
+        <meta
+          name="twitter:image:alt"
+          content="Koçyiğit Dojo Logo - Kyokushin Karate"
         />
 
         {/* Additional SEO */}
@@ -102,7 +111,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               "@context": "https://schema.org",
               "@type": "SportsActivityLocation",
               name: "Koçyiğit Dojo",
-              image: "https://kocyigitdojo.com/logo.png",
+              image: "https://www.kocyigitdojo.com/og-image.png",
               description:
                 "İstanbul Tuzla'da profesyonel Kyokushin ve Shinkyokushin Karate eğitimi.",
               address: {
