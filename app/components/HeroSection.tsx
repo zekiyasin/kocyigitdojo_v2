@@ -145,6 +145,16 @@ export default function HeroSection() {
           border-color: #D92827;
           box-shadow: 0 0 15px rgba(217, 40, 39, 0.6);
         }
+        
+        /* Sadece aktif slide görünsün, diğerleri tamamen gizli */
+        .swiper-slide {
+          opacity: 0 !important;
+          pointer-events: none;
+        }
+        .swiper-slide-active {
+          opacity: 1 !important;
+          pointer-events: auto;
+        }
       `}</style>
     </div>
   );
