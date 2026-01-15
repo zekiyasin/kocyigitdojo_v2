@@ -144,7 +144,7 @@ export default function Basvuru() {
   return (
     <div
       className={`
-        min-h-screen bg-linear-to-b from-black to-red-950 py-20
+        min-h-screen bg-[#1A2238] py-20
         transition-all duration-1000 ease-out
         ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
       `}

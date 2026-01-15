@@ -26,32 +26,32 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-8 lg:px-12 flex justify-between items-start">
           {/* --- SOL TARAFTAKİ "BAYRAK" (RIBBON) LOGO ALANI --- */}
-          <div className="pointer-events-auto bg-[#1A2238] text-white shadow-2xl flex flex-col items-center px-5 pt-6 pb-8 rounded-b-lg relative overflow-hidden group transition-all duration-300 hover:pb-10">
+          <div className="pointer-events-auto bg-[#1A2238] text-white shadow-2xl flex flex-col items-center px-3 sm:px-5 pt-3 sm:pt-6 pb-4 sm:pb-8 rounded-b-lg relative overflow-hidden group transition-all duration-300 hover:pb-10">
             {/* Dekoratif Kırmızı Çizgi */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#D92827]" />
+            <div className="absolute top-0 left-0 right-0 h-1 sm:h-1.5 bg-[#D92827]" />
 
-            <Link to="/" className="flex flex-col items-center gap-3">
+            <Link to="/" className="flex flex-col items-center gap-2 sm:gap-3">
               {/* Logo */}
-              <div className="relative z-10 p-2 bg-white/5 rounded-full border border-white/10">
+              <div className="relative z-10 p-1.5 sm:p-2 bg-white/5 rounded-full border border-white/10">
                 <img
                   src={logo}
                   alt="Koçyiğit Dojo"
-                  className="w-16 h-16 object-contain"
+                  className="w-10 h-10 sm:w-16 sm:h-16 object-contain"
                 />
               </div>
 
               {/* Yazı */}
-              <div className="text-center z-10 mt-1">
-                <span className="block font-[Montserrat] font-black text-xl tracking-widest uppercase leading-none mb-1">
+              <div className="text-center z-10 mt-0.5 sm:mt-1">
+                <span className="block font-[Montserrat] font-black text-sm sm:text-xl tracking-widest uppercase leading-none mb-0.5 sm:mb-1">
                   KOÇYİĞİT
                 </span>
-                <span className="block font-[Montserrat] font-bold text-sm tracking-[0.4em] text-[#D92827] uppercase">
+                <span className="block font-[Montserrat] font-bold text-[10px] sm:text-sm tracking-[0.4em] text-[#D92827] uppercase">
                   DOJO
                 </span>
               </div>
 
-              {/* Dekoratif Çizgi */}
-              <div className="w-8 h-0.5 bg-white/20 mt-4 group-hover:w-16 transition-all duration-500" />
+              {/* Dekoratif Çizgi - Mobilde gizli */}
+              <div className="hidden sm:block w-8 h-0.5 bg-white/20 mt-4 group-hover:w-16 transition-all duration-500" />
             </Link>
 
             {/* Arka Plan Deseni */}
@@ -59,7 +59,7 @@ export default function Header() {
           </div>
 
           {/* --- SAĞ MENÜ BUTONU --- */}
-          <div className="mt-8 pointer-events-auto">
+          <div className="mt-4 sm:mt-8 pointer-events-auto">
             <button
               onClick={() => setOpen(true)}
               className={`
