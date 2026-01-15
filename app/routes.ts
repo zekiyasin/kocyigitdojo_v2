@@ -14,4 +14,5 @@ export default [
   route("kemer-listesi", "routes/kemer-listesi.tsx"),
   // route("galeri", "routes/galeri.tsx"), // Devre dışı
   route("hakkimizda", "routes/hakkimizda.tsx"),
+  route("basvuru", "routes/basvuru.tsx"),
 ] satisfies RouteConfig;

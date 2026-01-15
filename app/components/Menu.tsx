@@ -13,6 +13,17 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
   const [mounted, setMounted] = useState(isOpen);
   const [animateIn, setAnimateIn] = useState(false);
 
+  // Navigate ve menüyü kapat fonksiyonu
+  const handleNavigate = useCallback(
+    (path: string) => {
+      onClose(); // Önce kapanma animasyonunu başlat
+      setTimeout(() => {
+        navigate(path); // Animasyon süresince route'u değiştir
+      }, 100);
+    },
+    [navigate, onClose]
+  );
+
   // ESC ile kapat
   useEffect(() => {
     if (!isOpen) return;
@@ -28,7 +39,10 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
     if (isOpen) {
       setMounted(true);
       setAnimateIn(false);
-      const id = requestAnimationFrame(() => setAnimateIn(true));
+      // Küçük bir delay ile açılış animasyonunu başlat
+      const id = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setAnimateIn(true));
+      });
       return () => cancelAnimationFrame(id);
     } else {
       setAnimateIn(false);
@@ -41,19 +55,25 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
 
   // MENÜ LİSTESİ: Kategorilerdeki sayfalar eklendi
   const menuItems = [
-    { label: "Ana Sayfa", action: () => navigate("/") },
+    { label: "Ana Sayfa", action: () => handleNavigate("/") },
+
+    // --- Başvuru ---
+    { label: "Sporcu Başvurusu", action: () => handleNavigate("/basvuru") },
 
     // --- Eğitmenler & Sporcular ---
-    { label: "Sensei", action: () => navigate("/sensei") },
-    { label: "Senpai", action: () => navigate("/senpai") },
-    { label: "Sporcu Sıralaması", action: () => navigate("/sporcu-siralama") },
-    { label: "Kemer Listesi", action: () => navigate("/kemer-listesi") },
+    { label: "Sensei", action: () => handleNavigate("/sensei") },
+    { label: "Senpai", action: () => handleNavigate("/senpai") },
+    {
+      label: "Sporcu Sıralaması",
+      action: () => handleNavigate("/sporcu-siralama"),
+    },
+    { label: "Kemer Listesi", action: () => handleNavigate("/kemer-listesi") },
 
     // --- Eğitim & Bilgi ---
-    { label: "Kata", action: () => navigate("/kata") },
-    { label: "Kumite", action: () => navigate("/kumite") },
-    { label: "Sınavlar", action: () => navigate("/sinavlar") },
-    { label: "Dojo Kun", action: () => navigate("/dojo-kun") },
+    { label: "Kata", action: () => handleNavigate("/kata") },
+    { label: "Kumite", action: () => handleNavigate("/kumite") },
+    { label: "Sınavlar", action: () => handleNavigate("/sinavlar") },
+    { label: "Dojo Kun", action: () => handleNavigate("/dojo-kun") },
   ];
 
   return (
@@ -62,8 +82,8 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
       <div
         className={`
           fixed inset-0 z-60 bg-black/60 backdrop-blur-sm
-          transition-opacity duration-300 ease-out
-          ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
+          transition-all duration-500 ease-out
+          ${animateIn ? "opacity-100" : "opacity-0 pointer-events-none"}
         `}
         onClick={onClose}
         aria-hidden="true"
@@ -74,8 +94,8 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
         className={`
           fixed top-0 right-0 z-70 h-full w-full max-w-sm
           bg-[#1A2238] shadow-2xl border-l border-white/10
-          transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
+          transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1)
+          ${animateIn ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}
         `}
         role="dialog"
         aria-modal="true"
