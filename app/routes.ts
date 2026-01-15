@@ -15,4 +15,5 @@ export default [
   // route("galeri", "routes/galeri.tsx"), // Devre dışı
   route("hakkimizda", "routes/hakkimizda.tsx"),
   route("basvuru", "routes/basvuru.tsx"),
+  route("basvuru-sorgula", "routes/basvuru-sorgula.tsx"),
 ] satisfies RouteConfig;
