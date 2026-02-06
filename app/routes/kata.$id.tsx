@@ -37,7 +37,7 @@ export default function KataDetail() {
       const response = await kataService.getById(kataId);
       setKata(response.data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Kata yüklenemedi');
+      setError(err instanceof Error ? err.message : "Kata yüklenemedi");
     } finally {
       setLoading(false);
     }
@@ -47,16 +47,17 @@ export default function KataDetail() {
     try {
       const response = await kataService.getAll({ limit: 6 });
       // Filter out current kata
-      const filtered = response.data.data.filter(k => k.id !== currentKataId);
+      const filtered = response.data.data.filter((k) => k.id !== currentKataId);
       setOtherKatas(filtered.slice(0, 5));
     } catch (err) {
-      console.error('Diğer katalar yüklenemedi:', err);
+      console.error("Diğer katalar yüklenemedi:", err);
     }
   };
 
   const getYoutubeVideoId = (videoUrl: string | null): string => {
-    if (!videoUrl) return '';
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    if (!videoUrl) return "";
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = videoUrl.match(regExp);
     return match && match[2].length === 11 ? match[2] : videoUrl;
   };
@@ -76,7 +77,7 @@ export default function KataDetail() {
     return (
       <div className="min-h-screen bg-[#1A2238] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-400 mb-4">{error || 'Kata bulunamadı'}</p>
+          <p className="text-red-400 mb-4">{error || "Kata bulunamadı"}</p>
           <Link
             to="/kata"
             className="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors text-white"
@@ -119,8 +120,18 @@ export default function KataDetail() {
           to="/kata"
           className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Kata Listesine Dön
         </Link>
@@ -131,7 +142,7 @@ export default function KataDetail() {
             {/* Video Player */}
             <div className="bg-[#232d4b] rounded-2xl overflow-hidden border border-white/5 shadow-xl">
               <div className="aspect-video bg-black">
-                {kata.videoType === 'youtube' && kata.videoUrl ? (
+                {kata.videoType === "youtube" && kata.videoUrl ? (
                   <iframe
                     className="w-full h-full"
                     src={`https://www.youtube.com/embed/${getYoutubeVideoId(kata.videoUrl)}`}
@@ -151,7 +162,9 @@ export default function KataDetail() {
             <div className="bg-[#232d4b] rounded-2xl p-6 border border-white/5">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h1 className="text-3xl font-bold text-white mb-2">{kata.name}</h1>
+                  <h1 className="text-3xl font-bold text-white mb-2">
+                    {kata.name}
+                  </h1>
                   {kata.japaneseName && (
                     <p className="text-xl text-gray-400">{kata.japaneseName}</p>
                   )}
@@ -162,43 +175,63 @@ export default function KataDetail() {
               </div>
 
               {kata.description && (
-                <p className="text-gray-300 leading-relaxed">{kata.description}</p>
+                <p className="text-gray-300 leading-relaxed">
+                  {kata.description}
+                </p>
               )}
 
               {kata.japaneseDescription && (
-                <p className="text-gray-400 text-sm mt-3 italic">{kata.japaneseDescription}</p>
+                <p className="text-gray-400 text-sm mt-3 italic">
+                  {kata.japaneseDescription}
+                </p>
               )}
 
               {/* Özellikler */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
                 {kata.minimumBeltLevel && (
                   <div>
-                    <p className="text-xs text-gray-500 uppercase mb-1">Minimum Kuşak</p>
-                    <p className="text-white font-medium">{kata.minimumBeltLevel.replace('_', ' ')}</p>
+                    <p className="text-xs text-gray-500 uppercase mb-1">
+                      Minimum Kuşak
+                    </p>
+                    <p className="text-white font-medium">
+                      {kata.minimumBeltLevel.replace("_", " ")}
+                    </p>
                   </div>
                 )}
                 {kata.difficultyLevel && (
                   <div>
-                    <p className="text-xs text-gray-500 uppercase mb-1">Zorluk</p>
-                    <p className="text-white font-medium capitalize">{kata.difficultyLevel}</p>
+                    <p className="text-xs text-gray-500 uppercase mb-1">
+                      Zorluk
+                    </p>
+                    <p className="text-white font-medium capitalize">
+                      {kata.difficultyLevel}
+                    </p>
                   </div>
                 )}
                 {kata.numberOfMoves && (
                   <div>
-                    <p className="text-xs text-gray-500 uppercase mb-1">Hareket Sayısı</p>
-                    <p className="text-white font-medium">{kata.numberOfMoves}</p>
+                    <p className="text-xs text-gray-500 uppercase mb-1">
+                      Hareket Sayısı
+                    </p>
+                    <p className="text-white font-medium">
+                      {kata.numberOfMoves}
+                    </p>
                   </div>
                 )}
                 {kata.estimatedDuration && (
                   <div>
                     <p className="text-xs text-gray-500 uppercase mb-1">Süre</p>
-                    <p className="text-white font-medium">{kata.estimatedDuration} saniye</p>
+                    <p className="text-white font-medium">
+                      {kata.estimatedDuration} saniye
+                    </p>
                   </div>
                 )}
                 {kata.kataType && (
                   <div>
                     <p className="text-xs text-gray-500 uppercase mb-1">Tip</p>
-                    <p className="text-white font-medium capitalize">{kata.kataType}</p>
+                    <p className="text-white font-medium capitalize">
+                      {kata.kataType}
+                    </p>
                   </div>
                 )}
               </div>
@@ -207,8 +240,10 @@ export default function KataDetail() {
             {/* Teknikler ve Duruşlar */}
             {(kata.keyTechniques?.length > 0 || kata.stances?.length > 0) && (
               <div className="bg-[#232d4b] rounded-2xl p-6 border border-white/5">
-                <h2 className="text-xl font-bold text-white mb-4">Teknikler ve Duruşlar</h2>
-                
+                <h2 className="text-xl font-bold text-white mb-4">
+                  Teknikler ve Duruşlar
+                </h2>
+
                 {kata.keyTechniques?.length > 0 && (
                   <div className="mb-4">
                     <p className="text-sm text-gray-400 mb-2">Ana Teknikler:</p>
@@ -248,22 +283,34 @@ export default function KataDetail() {
               <div className="space-y-4">
                 {kata.notes && (
                   <div className="bg-[#232d4b] rounded-2xl p-6 border border-white/5">
-                    <h3 className="text-lg font-bold text-white mb-3">📝 Notlar</h3>
-                    <p className="text-gray-300 leading-relaxed">{kata.notes}</p>
+                    <h3 className="text-lg font-bold text-white mb-3">
+                      📝 Notlar
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      {kata.notes}
+                    </p>
                   </div>
                 )}
 
                 {kata.commonMistakes && (
                   <div className="bg-[#232d4b] rounded-2xl p-6 border border-red-900/20">
-                    <h3 className="text-lg font-bold text-red-400 mb-3">⚠️ Yaygın Hatalar</h3>
-                    <p className="text-gray-300 leading-relaxed">{kata.commonMistakes}</p>
+                    <h3 className="text-lg font-bold text-red-400 mb-3">
+                      ⚠️ Yaygın Hatalar
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      {kata.commonMistakes}
+                    </p>
                   </div>
                 )}
 
                 {kata.trainingTips && (
                   <div className="bg-[#232d4b] rounded-2xl p-6 border border-green-900/20">
-                    <h3 className="text-lg font-bold text-green-400 mb-3">💡 Antrenman İpuçları</h3>
-                    <p className="text-gray-300 leading-relaxed">{kata.trainingTips}</p>
+                    <h3 className="text-lg font-bold text-green-400 mb-3">
+                      💡 Antrenman İpuçları
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      {kata.trainingTips}
+                    </p>
                   </div>
                 )}
               </div>
@@ -273,8 +320,10 @@ export default function KataDetail() {
           {/* Sağ - Diğer Katalar */}
           <div className="lg:col-span-1">
             <div className="bg-[#232d4b] rounded-2xl p-6 border border-white/5 sticky top-24">
-              <h2 className="text-xl font-bold text-white mb-4">Diğer Katalar</h2>
-              
+              <h2 className="text-xl font-bold text-white mb-4">
+                Diğer Katalar
+              </h2>
+
               {otherKatas.length === 0 ? (
                 <p className="text-gray-400 text-sm">Başka kata bulunamadı.</p>
               ) : (
@@ -288,7 +337,8 @@ export default function KataDetail() {
                       <div className="flex gap-3 p-3 rounded-lg bg-[#1A2238] hover:bg-[#253152] border border-white/5 hover:border-white/10 transition-all">
                         {/* Thumbnail */}
                         <div className="flex-shrink-0 w-24 h-16 bg-black rounded overflow-hidden">
-                          {otherKata.videoType === 'youtube' && otherKata.videoUrl ? (
+                          {otherKata.videoType === "youtube" &&
+                          otherKata.videoUrl ? (
                             <img
                               src={`https://img.youtube.com/vi/${getYoutubeVideoId(otherKata.videoUrl)}/default.jpg`}
                               alt={otherKata.name}
@@ -307,15 +357,19 @@ export default function KataDetail() {
                             {otherKata.name}
                           </h3>
                           {otherKata.japaneseName && (
-                            <p className="text-xs text-gray-400 truncate">{otherKata.japaneseName}</p>
+                            <p className="text-xs text-gray-400 truncate">
+                              {otherKata.japaneseName}
+                            </p>
                           )}
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-xs text-gray-500">{otherKata.style}</span>
+                            <span className="text-xs text-gray-500">
+                              {otherKata.style}
+                            </span>
                             {otherKata.minimumBeltLevel && (
                               <>
                                 <span className="text-gray-600">•</span>
                                 <span className="text-xs text-gray-500">
-                                  {otherKata.minimumBeltLevel.replace('_', ' ')}
+                                  {otherKata.minimumBeltLevel.replace("_", " ")}
                                 </span>
                               </>
                             )}

@@ -43,16 +43,17 @@ const KataPage = () => {
       const response = await kataService.getAll({ limit: 100 });
       setKatas(response.data.data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Katalar yüklenemedi');
+      setError(err instanceof Error ? err.message : "Katalar yüklenemedi");
     } finally {
       setLoading(false);
     }
   };
 
   const getYoutubeVideoId = (videoUrl: string | null): string => {
-    if (!videoUrl) return '';
+    if (!videoUrl) return "";
     // Extract YouTube video ID from various URL formats
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = videoUrl.match(regExp);
     return match && match[2].length === 11 ? match[2] : videoUrl;
   };
@@ -104,7 +105,7 @@ const KataPage = () => {
         ) : error ? (
           <div className="text-center text-red-400 py-20">
             <p>{error}</p>
-            <button 
+            <button
               onClick={loadKatas}
               className="mt-4 px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
             >
@@ -129,13 +130,14 @@ const KataPage = () => {
               >
                 {/* Video Thumbnail */}
                 <div className="aspect-video w-full bg-black relative group-hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-shadow">
-                  {kata.videoType === 'youtube' && kata.videoUrl ? (
+                  {kata.videoType === "youtube" && kata.videoUrl ? (
                     <img
                       src={`https://img.youtube.com/vi/${getYoutubeVideoId(kata.videoUrl)}/maxresdefault.jpg`}
                       alt={kata.name}
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${getYoutubeVideoId(kata.videoUrl)}/hqdefault.jpg`;
+                        (e.target as HTMLImageElement).src =
+                          `https://img.youtube.com/vi/${getYoutubeVideoId(kata.videoUrl)}/hqdefault.jpg`;
                       }}
                     />
                   ) : kata.videoThumbnailUrl ? (
@@ -149,12 +151,16 @@ const KataPage = () => {
                       <span>Video Yok</span>
                     </div>
                   )}
-                  
+
                   {/* Play Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
+                      <svg
+                        className="w-8 h-8 text-white ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
                   </div>
@@ -168,7 +174,7 @@ const KataPage = () => {
                     </span>
                     {kata.minimumBeltLevel && (
                       <span className="text-xs text-gray-400">
-                        Min: {kata.minimumBeltLevel.replace('_', ' ')}
+                        Min: {kata.minimumBeltLevel.replace("_", " ")}
                       </span>
                     )}
                   </div>
@@ -176,7 +182,9 @@ const KataPage = () => {
                     {kata.name}
                   </h3>
                   {kata.japaneseName && (
-                    <p className="text-sm text-gray-400 mt-1">{kata.japaneseName}</p>
+                    <p className="text-sm text-gray-400 mt-1">
+                      {kata.japaneseName}
+                    </p>
                   )}
                   {kata.description && (
                     <p className="text-sm text-gray-300 mt-3 line-clamp-2">

@@ -1,4 +1,4 @@
-import apiClient from './api';
+import apiClient from "./api";
 
 export interface Kata {
   id: string;
@@ -15,7 +15,7 @@ export interface Kata {
   numberOfMoves: number | null;
   keyTechniques: string[];
   stances: string[];
-  videoType: 'youtube' | 'minio';
+  videoType: "youtube" | "minio";
   videoUrl: string | null;
   videoThumbnailUrl: string | null;
   videoDuration: number | null;
@@ -70,22 +70,23 @@ class KataService {
   async getAll(filters?: KataFilters): Promise<KataListResponse> {
     try {
       const params = new URLSearchParams();
-      
-      if (filters?.page) params.append('page', filters.page.toString());
-      if (filters?.limit) params.append('limit', filters.limit.toString());
-      if (filters?.style) params.append('style', filters.style);
-      if (filters?.difficulty_level) params.append('difficulty_level', filters.difficulty_level);
-      if (filters?.kata_type) params.append('kata_type', filters.kata_type);
-      if (filters?.search) params.append('search', filters.search);
-      if (filters?.competition_only) params.append('competition_only', 'true');
+
+      if (filters?.page) params.append("page", filters.page.toString());
+      if (filters?.limit) params.append("limit", filters.limit.toString());
+      if (filters?.style) params.append("style", filters.style);
+      if (filters?.difficulty_level)
+        params.append("difficulty_level", filters.difficulty_level);
+      if (filters?.kata_type) params.append("kata_type", filters.kata_type);
+      if (filters?.search) params.append("search", filters.search);
+      if (filters?.competition_only) params.append("competition_only", "true");
 
       const queryString = params.toString();
-      const url = `/katas${queryString ? `?${queryString}` : ''}`;
-      
+      const url = `/katas${queryString ? `?${queryString}` : ""}`;
+
       const response = await apiClient.get<KataListResponse>(url);
       return response.data;
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Katalar yüklenemedi');
+      throw new Error(error.response?.data?.message || "Katalar yüklenemedi");
     }
   }
 
@@ -97,7 +98,9 @@ class KataService {
       const response = await apiClient.get<KataDetailResponse>(`/katas/${id}`);
       return response.data;
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Kata detayı yüklenemedi');
+      throw new Error(
+        error.response?.data?.message || "Kata detayı yüklenemedi",
+      );
     }
   }
 
@@ -106,10 +109,12 @@ class KataService {
    */
   async getStyles(): Promise<{ message: string; data: string[] }> {
     try {
-      const response = await apiClient.get('/katas/styles');
+      const response = await apiClient.get("/katas/styles");
       return response.data;
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Kata stilleri yüklenemedi');
+      throw new Error(
+        error.response?.data?.message || "Kata stilleri yüklenemedi",
+      );
     }
   }
 
@@ -118,10 +123,14 @@ class KataService {
    */
   async getByBeltLevel(beltLevel: string): Promise<KataListResponse> {
     try {
-      const response = await apiClient.get<KataListResponse>(`/katas/belt-level/${beltLevel}`);
+      const response = await apiClient.get<KataListResponse>(
+        `/katas/belt-level/${beltLevel}`,
+      );
       return response.data;
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Kuşak seviyesi kataları yüklenemedi');
+      throw new Error(
+        error.response?.data?.message || "Kuşak seviyesi kataları yüklenemedi",
+      );
     }
   }
 }
