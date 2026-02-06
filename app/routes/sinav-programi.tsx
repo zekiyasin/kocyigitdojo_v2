@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import type { Route } from "./+types/sinavlar";
-import { egzersizTablosu } from "../data/kyu";
-import type { EgzersizRow } from "../data/kyu";
+import type { Route } from "./+types/sinav-programi";
 import {
+  FaPlay,
   FaChevronDown,
   FaChevronUp,
   FaRunning,
@@ -18,23 +17,22 @@ import type { Exam, ExamRequirement } from "../services/examService";
 export function meta({}: Route.MetaArgs) {
   return [
     {
-      title:
-        "Kyu Sınavları ve Müfredat | Kyokushin Karate Tuzla - Koçyiğit Dojo",
+      title: "Sınav Programı - Kyokushin Karate Tuzla | Koçyiğit Dojo",
     },
     {
       name: "description",
       content:
-        "Kyokushin Karate kyu sınav müfredatı ve fiziksel yeterlilik gereksinimleri. 10. kyu'dan 1. kyu'ya kadar tüm seviyeler için teknik videolar ve egzersiz tabloları. Tuzla İstanbul.",
+        "Kyokushin Karate kyu sınav programı ve gereksinimleri. Her kemer seviyesi için detaylı müfredat ve teknik gereksinimler. Tuzla İstanbul.",
     },
     {
       tagName: "link",
       rel: "canonical",
-      href: "https://kocyigitdojo.com/sinavlar",
+      href: "https://kocyigitdojo.com/sinav-programi",
     },
     {
       name: "keywords",
       content:
-        "Kyokushin Sınavlar, Kyu Sınavı, Karate Kemer Sınavı, Kyu Müfredat, Karate Seviyeler, Kyokushin Tuzla, Kemer Terfi",
+        "Kyokushin Sınav, Kyu Programı, Karate Kemer Sınavı, Kyokushin Müfredat, Karate Tuzla, Sınav Gereksinimleri",
     },
   ];
 }
@@ -76,8 +74,8 @@ const RequirementSection = ({
   );
 };
 
-// --- Alt Bileşen: Akordeon (Accordion) ---
-const KyuAccordion = ({ exam, index }: { exam: Exam; index: number }) => {
+// --- Alt Bileşen: Sınav Akordeon ---
+const ExamAccordion = ({ exam, index }: { exam: Exam; index: number }) => {
   const [open, setOpen] = useState(index === 0);
   const groupedRequirements = groupRequirementsByType(exam.requirements);
 
@@ -187,63 +185,8 @@ const KyuAccordion = ({ exam, index }: { exam: Exam; index: number }) => {
   );
 };
 
-// --- Alt Bileşen: Egzersiz Tablosu ---
-const EgzersizTablosu = () => (
-  <div className="rounded-2xl bg-[#232d4b] border border-white/5 shadow-2xl overflow-hidden mt-12">
-    <div className="px-6 py-6 border-b border-white/5 flex items-center gap-3">
-      <div className="p-2 bg-[#D92827]/10 rounded-lg text-[#D92827]">
-        <FaRunning size={24} />
-      </div>
-      <div>
-        <h3 className="text-white text-xl font-[Montserrat] font-bold">
-          Fiziksel Yeterlilik Tablosu
-        </h3>
-        <p className="text-gray-400 text-sm mt-1">
-          Kyu sınavlarında beklenen minimum tekrar ve süre hedefleri.
-        </p>
-      </div>
-    </div>
-
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm text-left">
-        <thead className="bg-white/5 text-gray-300 font-[Montserrat] uppercase text-xs tracking-wider">
-          <tr>
-            <th className="px-6 py-4 font-bold text-white">Seviye</th>
-            <th className="px-6 py-4">Esneklik</th>
-            <th className="px-6 py-4 text-center">Şınav</th>
-            <th className="px-6 py-4 text-center">Çök-Kalk</th>
-            <th className="px-6 py-4 text-center">Mekik</th>
-            <th className="px-6 py-4 text-center">Çubuk</th>
-            <th className="px-6 py-4 text-center">Tobi Geri</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-white/5">
-          {egzersizTablosu.map((r: EgzersizRow, i: number) => (
-            <tr
-              key={i}
-              className="hover:bg-white/2 transition-colors text-gray-300"
-            >
-              <td className="px-6 py-4 font-bold text-white bg-white/2">
-                {r.kyu}
-              </td>
-              <td className="px-6 py-4">{r.esneklik}</td>
-              <td className="px-6 py-4 text-center font-mono text-[#D92827] font-bold bg-[#D92827]/2">
-                {r.sinav}
-              </td>
-              <td className="px-6 py-4 text-center font-mono">{r.çökkalk}</td>
-              <td className="px-6 py-4 text-center font-mono">{r.mekik}</td>
-              <td className="px-6 py-4 text-center font-mono">{r.çubuk}</td>
-              <td className="px-6 py-4 text-center">{r.tobi}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-);
-
 // --- Ana Bileşen ---
-const Sinavlar = () => {
+const SinavProgrami = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [exams, setExams] = useState<Exam[]>([]);
   const [loading, setLoading] = useState(true);
@@ -292,13 +235,12 @@ const Sinavlar = () => {
       {/* Başlık */}
       <div className="max-w-4xl mx-auto mb-16 text-center relative z-10">
         <h1 className="text-3xl sm:text-4xl font-[Montserrat] font-bold tracking-wide uppercase">
-          Kyu Sınav Müfredatı
+          Kyu Sınav Programı
         </h1>
         <div className="mt-4 h-1.5 w-24 bg-[#D92827] rounded-full mx-auto shadow-[0_0_15px_rgba(217,40,39,0.5)]" />
         <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-          Koçyiğit Dojo standartlarına göre belirlenmiş teknik ve fiziksel
-          gereksinimler. Her seviye için gereken teknikleri videolu anlatımlarla
-          inceleyebilirsiniz.
+          Koçyiğit Dojo standartlarına göre belirlenmiş resmi sınav programı.
+          Her kemer seviyesi için detaylı gereksinimler ve puanlama sistemi.
         </p>
       </div>
 
@@ -307,7 +249,7 @@ const Sinavlar = () => {
         {loading && (
           <div className="flex flex-col items-center justify-center py-20">
             <FaSpinner className="animate-spin text-[#D92827] text-4xl mb-4" />
-            <p className="text-gray-400">Sınav müfredatı yükleniyor...</p>
+            <p className="text-gray-400">Sınav programı yükleniyor...</p>
           </div>
         )}
 
@@ -321,19 +263,15 @@ const Sinavlar = () => {
         {/* Exams List */}
         {!loading && !error && exams.length === 0 && (
           <div className="p-6 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-center">
-            <p className="text-yellow-400">Henüz sınav müfredatı bulunmuyor.</p>
+            <p className="text-yellow-400">Henüz sınav programı bulunmuyor.</p>
           </div>
         )}
 
         {!loading && !error && exams.length > 0 && (
           <>
-            {/* Kyu Listesi (Accordion) */}
             {exams.map((exam, index) => (
-              <KyuAccordion key={exam.id} exam={exam} index={index} />
+              <ExamAccordion key={exam.id} exam={exam} index={index} />
             ))}
-
-            {/* Egzersiz Tablosu */}
-            <EgzersizTablosu />
 
             {/* Dipnot */}
             <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-center">
@@ -349,4 +287,4 @@ const Sinavlar = () => {
   );
 };
 
-export default Sinavlar;
+export default SinavProgrami;

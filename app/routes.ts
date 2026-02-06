@@ -8,9 +8,11 @@ export default [
   route("senpai", "routes/senpai.tsx"),
   route("sporcu-siralama", "routes/sporcu-siralama.tsx"),
   route("kata", "routes/kata.tsx"),
+  route("kata/:id", "routes/kata.$id.tsx"),
   route("kumite", "routes/kumite.tsx"),
   route("dojo-kun", "routes/dojo-kun.tsx"),
   route("sinavlar", "routes/sinavlar.tsx"),
+  route("sinav-programi", "routes/sinav-programi.tsx"),
   route("kemer-listesi", "routes/kemer-listesi.tsx"),
   // route("galeri", "routes/galeri.tsx"), // Devre dışı
   route("hakkimizda", "routes/hakkimizda.tsx"),
