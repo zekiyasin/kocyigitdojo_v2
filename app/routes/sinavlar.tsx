@@ -8,11 +8,7 @@ import {
   FaRunning,
   FaSpinner,
 } from "react-icons/fa";
-import {
-  getAllExams,
-  groupRequirementsByType,
-  getRequirementTypeLabel,
-} from "../services/examService";
+import { getAllExams, getSortedRequirements } from "../services/examService";
 import type { Exam, ExamRequirement } from "../services/examService";
 
 export function meta({}: Route.MetaArgs) {
@@ -41,37 +37,38 @@ export function meta({}: Route.MetaArgs) {
 
 // --- Alt Bileşen: Gereksinim Listesi ---
 const RequirementSection = ({
-  title,
-  requirements,
+  requirement,
 }: {
-  title: string;
-  requirements: ExamRequirement[];
+  requirement: ExamRequirement;
 }) => {
-  if (requirements.length === 0) return null;
+  const sortedItems = [...(requirement.items || [])].sort(
+    (a, b) => a.displayOrder - b.displayOrder,
+  );
 
   return (
     <div className="rounded-lg border border-white/5 bg-white/2 p-5 hover:bg-white/4 transition-colors">
-      <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#D92827] border-b border-white/5 pb-2">
-        {title}
+      <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#D92827] border-b border-white/5 pb-2 flex items-center justify-between">
+        <span>{requirement.name}</span>
+        <span className="text-[10px] text-gray-400 font-normal normal-case">
+          {requirement.points} puan
+        </span>
       </h4>
-      <ul className="space-y-3">
-        {requirements.map((req) => (
-          <li
-            key={req.id}
-            className="flex items-start justify-between gap-3 group"
-          >
-            <div className="flex items-start gap-3">
+      {sortedItems.length > 0 ? (
+        <ul className="space-y-3">
+          {sortedItems.map((item) => (
+            <li key={item.id} className="flex items-start gap-3 group">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#D92827] shrink-0" />
               <span className="text-gray-300 text-sm group-hover:text-white transition-colors">
-                {req.name}
+                {item.name}
               </span>
-            </div>
-            <span className="text-xs text-[#D92827] font-bold whitespace-nowrap">
-              {req.points} puan
-            </span>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      ) : requirement.description ? (
+        <p className="text-gray-400 text-sm">{requirement.description}</p>
+      ) : (
+        <p className="text-gray-500 text-sm italic">Detay belirtilmemiş</p>
+      )}
     </div>
   );
 };
@@ -79,24 +76,11 @@ const RequirementSection = ({
 // --- Alt Bileşen: Akordeon (Accordion) ---
 const KyuAccordion = ({ exam, index }: { exam: Exam; index: number }) => {
   const [open, setOpen] = useState(index === 0);
-  const groupedRequirements = groupRequirementsByType(exam.requirements);
+  const sortedRequirements = getSortedRequirements(exam.requirements);
 
-  // Gösterilecek sıra
-  const typeOrder = [
-    "dachi",
-    "kihon_el",
-    "kihon_blok",
-    "kihon_ayak",
-    "ido_geiko",
-    "kata",
-    "kumite",
-    "kultur_fizik",
-  ];
-
-  const totalPoints = exam.requirements.reduce(
-    (sum, req) => sum + req.points,
-    0,
-  );
+  const totalPoints =
+    exam.totalScore ||
+    exam.requirements.reduce((sum, req) => sum + req.points, 0);
 
   return (
     <div className="rounded-xl bg-[#232d4b] border border-white/5 overflow-hidden transition-all duration-300 hover:border-white/10 shadow-lg">
@@ -140,7 +124,7 @@ const KyuAccordion = ({ exam, index }: { exam: Exam; index: number }) => {
               <div>
                 <div className="text-xs text-gray-400 mb-1">Geçme Puanı</div>
                 <div className="text-lg font-bold text-[#D92827]">
-                  {exam.minimumScore}
+                  {exam.passingScore || exam.minimumScore}
                 </div>
               </div>
               <div>
@@ -149,31 +133,32 @@ const KyuAccordion = ({ exam, index }: { exam: Exam; index: number }) => {
                   {exam.estimatedDurationMinutes} dk
                 </div>
               </div>
-              <div>
-                <div className="text-xs text-gray-400 mb-1">Gereksinim</div>
-                <div className="text-lg font-bold text-white">
-                  {exam.requirements.length}
+              {exam.bonusScore > 0 ? (
+                <div>
+                  <div className="text-xs text-gray-400 mb-1">Bonus Puan</div>
+                  <div className="text-lg font-bold text-green-400">
+                    +{exam.bonusScore}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <div className="text-xs text-gray-400 mb-1">Gereksinim</div>
+                  <div className="text-lg font-bold text-white">
+                    {exam.requirements.length}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Gereksinimler */}
           <div className="grid md:grid-cols-2 gap-4">
-            {typeOrder.map((type) => {
-              const requirements = groupedRequirements[type] || [];
-              if (requirements.length === 0) return null;
-
-              return (
-                <RequirementSection
-                  key={type}
-                  title={getRequirementTypeLabel(type)}
-                  requirements={requirements.sort(
-                    (a, b) => a.displayOrder - b.displayOrder,
-                  )}
-                />
-              );
-            })}
+            {sortedRequirements.map((requirement) => (
+              <RequirementSection
+                key={requirement.id}
+                requirement={requirement}
+              />
+            ))}
           </div>
 
           {exam.description && (
