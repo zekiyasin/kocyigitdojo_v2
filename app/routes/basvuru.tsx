@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFadeInOnMount } from "../hooks/useFadeInOnMount";
 import applicationService from "../services/applicationService";
+import apiClient from "../services/api";
 import type { Route } from "./+types/basvuru";
 import {
   FileEdit,
@@ -40,7 +41,9 @@ interface FormData {
   motherName: string;
   fatherName: string;
   motherPhone: string;
+  motherEmail: string;
   fatherPhone: string;
+  fatherEmail: string;
   guardianEmail: string;
   bloodType: string;
   allergies: string;
@@ -49,10 +52,16 @@ interface FormData {
   emergencyContactName: string;
   emergencyContactPhone: string;
   emergencyContactRelation: string;
+  clubId: string;
   hasPreviousExperience: boolean;
   previousExperienceDetails: string;
   previousClub: string;
   notes: string;
+}
+
+interface ClubOption {
+  id: string;
+  name: string;
 }
 
 export default function Basvuru() {
@@ -61,7 +70,7 @@ export default function Basvuru() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [applicationNumber, setApplicationNumber] = useState<string | null>(
-    null
+    null,
   );
   const [error, setError] = useState<string | null>(null);
 
@@ -70,6 +79,21 @@ export default function Basvuru() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [searchResult, setSearchResult] = useState<any>(null);
+
+  // Kulüpler
+  const [clubOptions, setClubOptions] = useState<ClubOption[]>([]);
+
+  useEffect(() => {
+    apiClient
+      .get("/clubs/active")
+      .then((res) => {
+        const data = res.data;
+        // API direkt array veya { data: [...] } dönebilir
+        const list = Array.isArray(data) ? data : data.data || data.clubs || [];
+        setClubOptions(list);
+      })
+      .catch(() => {});
+  }, []);
 
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -86,7 +110,9 @@ export default function Basvuru() {
     motherName: "",
     fatherName: "",
     motherPhone: "",
+    motherEmail: "",
     fatherPhone: "",
+    fatherEmail: "",
     guardianEmail: "",
     bloodType: "",
     allergies: "",
@@ -95,6 +121,7 @@ export default function Basvuru() {
     emergencyContactName: "",
     emergencyContactPhone: "",
     emergencyContactRelation: "",
+    clubId: "",
     hasPreviousExperience: false,
     previousExperienceDetails: "",
     previousClub: "",
@@ -104,7 +131,7 @@ export default function Basvuru() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
 
@@ -116,10 +143,60 @@ export default function Basvuru() {
     }
   };
 
+  // Yaş hesapla
+  const calculateAge = (birthDate: string): number | null => {
+    if (!birthDate) return null;
+    const birth = new Date(birthDate);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birth.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
+  const applicantAge = calculateAge(formData.birthDate);
+  const isUnder18 = applicantAge !== null && applicantAge < 18;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+
+    // Yaşa göre doğrulama
+    if (isUnder18) {
+      // 18 yaş altı: veli bilgisi ve veli emaili zorunlu
+      if (!formData.motherName && !formData.fatherName) {
+        setError(
+          "18 yaş altı sporcular için en az bir veli bilgisi (anne veya baba adı) zorunludur.",
+        );
+        setIsSubmitting(false);
+        return;
+      }
+      if (!formData.motherEmail && !formData.fatherEmail) {
+        setError(
+          "18 yaş altı sporcular için en az bir veli e-posta adresi zorunludur.",
+        );
+        setIsSubmitting(false);
+        return;
+      }
+      if (!formData.tcIdentity) {
+        setError("18 yaş altı sporcular için TC Kimlik No zorunludur.");
+        setIsSubmitting(false);
+        return;
+      }
+    } else if (applicantAge !== null) {
+      // 18 yaş ve üstü: email zorunlu
+      if (!formData.email) {
+        setError("18 yaş ve üstü sporcular için e-posta adresi zorunludur.");
+        setIsSubmitting(false);
+        return;
+      }
+    }
 
     try {
       const response = await applicationService.submitApplication(formData);
@@ -140,7 +217,9 @@ export default function Basvuru() {
         motherName: "",
         fatherName: "",
         motherPhone: "",
+        motherEmail: "",
         fatherPhone: "",
+        fatherEmail: "",
         guardianEmail: "",
         bloodType: "",
         allergies: "",
@@ -149,6 +228,7 @@ export default function Basvuru() {
         emergencyContactName: "",
         emergencyContactPhone: "",
         emergencyContactRelation: "",
+        clubId: "",
         hasPreviousExperience: false,
         previousExperienceDetails: "",
         previousClub: "",
@@ -169,7 +249,7 @@ export default function Basvuru() {
 
     try {
       const response = await applicationService.checkApplicationStatus(
-        searchNumber.trim().toUpperCase()
+        searchNumber.trim().toUpperCase(),
       );
       setSearchResult(response);
     } catch (err: any) {
@@ -291,6 +371,32 @@ export default function Basvuru() {
               onSubmit={handleSubmit}
               className="bg-black/40 backdrop-blur-sm border border-red-900/30 rounded-2xl p-8 space-y-8"
             >
+              {/* Kulüp Seçimi */}
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-6 border-b border-red-900/50 pb-3">
+                  Kulüp Seçimi
+                </h2>
+                <div>
+                  <label className="block text-gray-300 mb-2 text-sm font-medium">
+                    Başvurmak İstediğiniz Kulüp *
+                  </label>
+                  <select
+                    name="clubId"
+                    value={formData.clubId}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
+                  >
+                    <option value="">Kulüp Seçiniz</option>
+                    {clubOptions.map((club) => (
+                      <option key={club.id} value={club.id}>
+                        {club.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               {/* Kişisel Bilgiler */}
               <div>
                 <h2 className="text-2xl font-bold text-white mb-6 border-b border-red-900/50 pb-3">
@@ -328,16 +434,28 @@ export default function Basvuru() {
 
                   <div>
                     <label className="block text-gray-300 mb-2 text-sm font-medium">
-                      E-posta *
+                      E-posta{" "}
+                      {!isUnder18 && <span className="text-red-400">*</span>}
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
+                      required={applicantAge !== null && !isUnder18}
+                      placeholder={
+                        isUnder18
+                          ? "Opsiyonel (18 yaş altı)"
+                          : "ornek@email.com"
+                      }
                       className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
                     />
+                    {isUnder18 && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        18 yaş altı sporcular için e-posta opsiyoneldir. TC
+                        Kimlik No ile giriş yapılabilir.
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -489,70 +607,122 @@ export default function Basvuru() {
               {/* Veli Bilgileri */}
               <div>
                 <h2 className="text-2xl font-bold text-white mb-6 border-b border-red-900/50 pb-3">
-                  Veli Bilgileri
+                  Veli Bilgileri{" "}
+                  {isUnder18 && (
+                    <span className="text-red-400 text-lg">(Zorunlu)</span>
+                  )}
                 </h2>
+                {isUnder18 ? (
+                  <p className="text-sm text-yellow-400 mb-4">
+                    18 yaş altı sporcular için en az bir veli bilgisi ve veli
+                    e-posta adresi zorunludur *
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-400 mb-4">
+                    18 yaş ve üstü sporcular için veli bilgileri opsiyoneldir
+                  </p>
+                )}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-gray-300 mb-2 text-sm font-medium">
-                      Anne Adı
+                      Anne Adı{" "}
+                      {isUnder18 && !formData.fatherName && (
+                        <span className="text-red-400">*</span>
+                      )}
                     </label>
                     <input
                       type="text"
                       name="motherName"
                       value={formData.motherName}
                       onChange={handleChange}
+                      required={isUnder18 && !formData.fatherName}
                       className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
                     />
                   </div>
 
                   <div>
                     <label className="block text-gray-300 mb-2 text-sm font-medium">
-                      Anne Telefon
+                      Anne Telefon{" "}
+                      {isUnder18 && formData.motherName && (
+                        <span className="text-red-400">*</span>
+                      )}
                     </label>
                     <input
                       type="tel"
                       name="motherPhone"
                       value={formData.motherPhone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-gray-300 mb-2 text-sm font-medium">
-                      Baba Adı
-                    </label>
-                    <input
-                      type="text"
-                      name="fatherName"
-                      value={formData.fatherName}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-gray-300 mb-2 text-sm font-medium">
-                      Baba Telefon
-                    </label>
-                    <input
-                      type="tel"
-                      name="fatherPhone"
-                      value={formData.fatherPhone}
-                      onChange={handleChange}
+                      required={isUnder18 && !!formData.motherName}
                       className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
                     />
                   </div>
 
                   <div className="md:col-span-2">
                     <label className="block text-gray-300 mb-2 text-sm font-medium">
-                      Veli E-posta
+                      Anne E-posta{" "}
+                      {isUnder18 && !formData.fatherEmail && (
+                        <span className="text-red-400">*</span>
+                      )}
                     </label>
                     <input
                       type="email"
-                      name="guardianEmail"
-                      value={formData.guardianEmail}
+                      name="motherEmail"
+                      value={formData.motherEmail}
                       onChange={handleChange}
+                      required={isUnder18 && !formData.fatherEmail}
+                      placeholder="anne@example.com"
+                      className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-300 mb-2 text-sm font-medium">
+                      Baba Adı{" "}
+                      {isUnder18 && !formData.motherName && (
+                        <span className="text-red-400">*</span>
+                      )}
+                    </label>
+                    <input
+                      type="text"
+                      name="fatherName"
+                      value={formData.fatherName}
+                      onChange={handleChange}
+                      required={isUnder18 && !formData.motherName}
+                      className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-300 mb-2 text-sm font-medium">
+                      Baba Telefon{" "}
+                      {isUnder18 && formData.fatherName && (
+                        <span className="text-red-400">*</span>
+                      )}
+                    </label>
+                    <input
+                      type="tel"
+                      name="fatherPhone"
+                      value={formData.fatherPhone}
+                      onChange={handleChange}
+                      required={isUnder18 && !!formData.fatherName}
+                      className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-gray-300 mb-2 text-sm font-medium">
+                      Baba E-posta{" "}
+                      {isUnder18 && !formData.motherEmail && (
+                        <span className="text-red-400">*</span>
+                      )}
+                    </label>
+                    <input
+                      type="email"
+                      name="fatherEmail"
+                      value={formData.fatherEmail}
+                      onChange={handleChange}
+                      required={isUnder18 && !formData.motherEmail}
+                      placeholder="baba@example.com"
                       className="w-full px-4 py-3 bg-black/50 border border-red-900/30 rounded-lg text-white focus:outline-none focus:border-red-500 transition-colors"
                     />
                   </div>
@@ -836,7 +1006,7 @@ export default function Basvuru() {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
-                        }
+                        },
                       )}
                     </span>
                   </div>
@@ -851,7 +1021,7 @@ export default function Basvuru() {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
-                          }
+                          },
                         )}
                       </span>
                     </div>
@@ -862,7 +1032,7 @@ export default function Basvuru() {
                       <span className="text-gray-400 font-medium">Durum</span>
                       <span
                         className={`px-4 py-2 rounded-lg font-bold border ${getStatusColor(
-                          searchResult.status
+                          searchResult.status,
                         )}`}
                       >
                         {searchResult.statusDisplay}

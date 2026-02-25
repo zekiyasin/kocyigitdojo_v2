@@ -14,8 +14,10 @@ export interface AthleteApplicationData {
   postalCode: string;
   motherName: string;
   motherPhone: string;
+  motherEmail?: string;
   fatherName: string;
   fatherPhone: string;
+  fatherEmail?: string;
   guardianEmail: string;
   emergencyContactName: string;
   emergencyContactPhone: string;
@@ -24,6 +26,7 @@ export interface AthleteApplicationData {
   allergies: string;
   healthConditions: string;
   medications: string;
+  clubId?: string;
   hasPreviousExperience: boolean;
   previousClub?: string;
   previousExperienceDetails?: string;
@@ -41,12 +44,12 @@ class ApplicationService {
    * Submit athlete application
    */
   async submitApplication(
-    data: AthleteApplicationData
+    data: AthleteApplicationData,
   ): Promise<AthleteApplicationResponse> {
     try {
       const response = await apiClient.post<AthleteApplicationResponse>(
         "/applications",
-        data
+        data,
       );
       return response.data;
     } catch (error: any) {
@@ -58,14 +61,14 @@ class ApplicationService {
         // TC kimlik numarası duplicate hatası kontrolü
         if (errorDetails.includes("tc_identity_unique")) {
           throw new Error(
-            "Bu TC kimlik numarası ile daha önce başvuru yapılmış. Lütfen bizimle iletişime geçin."
+            "Bu TC kimlik numarası ile daha önce başvuru yapılmış. Lütfen bizimle iletişime geçin.",
           );
         }
 
         // Email duplicate hatası kontrolü
         if (errorDetails.includes("email_unique")) {
           throw new Error(
-            "Bu e-posta adresi ile daha önce başvuru yapılmış. Lütfen farklı bir e-posta kullanın."
+            "Bu e-posta adresi ile daha önce başvuru yapılmış. Lütfen farklı bir e-posta kullanın.",
           );
         }
 
@@ -98,7 +101,7 @@ class ApplicationService {
       return response.data;
     } catch (error: any) {
       throw new Error(
-        error.response?.data?.message || "Başvuru bilgisi alınamadı"
+        error.response?.data?.message || "Başvuru bilgisi alınamadı",
       );
     }
   }
